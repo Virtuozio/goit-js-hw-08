@@ -17,6 +17,6 @@ function playOn(currentTime) {
   }
 }
 
-if (time) {
+if (time !== undefined) {
   player.setCurrentTime(time);
 }
