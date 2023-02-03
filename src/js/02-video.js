@@ -3,6 +3,9 @@ import throttle from 'lodash.throttle';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 const STORAGE_KEY = 'videoplayer-current-time';
+const time = localStorage.getItem(STORAGE_KEY);
+
+player.on('timeupdate', throttle(playOn, 1000));
 
 function playOn(currentTime) {
   try {
@@ -13,7 +16,7 @@ function playOn(currentTime) {
     console.error('Set state error: ', error.message);
   }
 }
-player.on('timeupdate', throttle(playOn, 1000));
 
-const time = localStorage.getItem(STORAGE_KEY);
-player.setCurrentTime(time);
+if (time) {
+  player.setCurrentTime(time);
+}
